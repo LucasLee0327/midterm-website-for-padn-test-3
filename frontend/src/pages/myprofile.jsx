@@ -60,6 +60,7 @@ function myprofile() {
         setAvatar(base64Image);
       } catch (error) {
         // Handle error
+        alert("Some error occured. Please change another photo.")
         console.error('Error uploading image:', error);
       }
     };
