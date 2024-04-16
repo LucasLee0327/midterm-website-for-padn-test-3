@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/midterm-website-for-padn-test-3/",
+  base: "./",
   plugins: [react()],
   server: {
     proxy: {
@@ -14,3 +14,5 @@ export default defineConfig({
     },
   },
 });
+
+// https://midterm-website-for-padn-test-3.vercel.app
