@@ -2,7 +2,7 @@
   "name": "midterm-website-for-padn-test-3",
   "version": "1.0.0",
   "main": "index.js",
-  "homepage": "https://midterm-website-for-padn-test-3.vercel.app",
+  "homepage": "https://midterm-website-for-padn-test-3-frontend.vercel.app",
   "author": "LucasLee0327 <0327lucas@gmail.com>",
   "license": "MIT",
   "scripts": {
