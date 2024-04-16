@@ -12,6 +12,8 @@ function LoginPage() {
     const { login } = useContext(AuthContext);
     const [credential, setCredential] = useState({ username: "", password: ""});
     const [error, setError] = useState("");
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    const passwordRegex = /^[a-zA-Z0-9]+$/;
 
     /** @type {React.ChangeEventHandler<HTMLInputElement>} */
     const handleTextInputChange = ({ target: { name, value } }) => {
@@ -25,6 +27,16 @@ function LoginPage() {
 
     const handleLogin = async (event) => {
         event.preventDefault();
+        if (!usernameRegex.test(credential.username)) {
+            setError("Username can only contain letters and numbers.");
+            setCredential({ username: "", password: "" });
+            return;
+        }
+        if (!passwordRegex.test(credential.password)) {
+            setError("Password can only contain letters and numbers.");
+            setCredential({ username: "", password: "" });
+            return;
+        }
         const credentials = {
             username: credential.username,
             password: credential.password,
@@ -45,14 +57,13 @@ function LoginPage() {
 
     return (
         <>
-        {/*
-            This example requires updating your template:
-
-            ```
-            <html class="h-full bg-gray-50">
-            <body class="h-full">
-            ```
-        */}
+        <div className="flex justify-center">
+            {error && (
+            <div className="bg-red-500 text-white px-4 py-2 rounded-md">
+                {error}
+            </div>
+            )}
+        </div>
         <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="w-full max-w-md space-y-8">
             <div>
@@ -106,7 +117,6 @@ function LoginPage() {
             </form>
             </div>
         </div>
-        <prev>{error}</prev>
         </>
   );
 }

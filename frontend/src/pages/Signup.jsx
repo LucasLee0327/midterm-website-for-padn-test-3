@@ -5,8 +5,10 @@ import defPic from "./default-avatar.jpg";
 // you should design your register page and api
 function SignUpPage() {
   const [account, setAccount] = useState({ username: "", password: ""});
-  const [message, setMessage] = useState("");
   const [defaultAvatarBase64, setDefaultAvatarBase64] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const usernameRegex = /^[a-zA-Z0-9]+$/;
+  const passwordRegex = /^[a-zA-Z0-9]+$/;
 
   useEffect(() => {
     // 取得 default-picture.jpg 並轉換為 Blob 對象
@@ -21,7 +23,7 @@ function SignUpPage() {
         reader.readAsDataURL(blob);
       })
       .catch((error) => {
-        console.error("Error fetching default avatar:", error);
+        console.error("Error fetching default avatar:", "default avatar upload failed.");
       });
   }, []);
 
@@ -37,27 +39,41 @@ function SignUpPage() {
 
   /** @type {React.FormEventHandler<HTMLFormElement>} */
   const handleFormSubmit = (event) => {
+    event.preventDefault();
     if (!defaultAvatarBase64) {
       console.error("Default avatar image not loaded.");
+      setAccount({ username: "", password: "" });
       return;
     }
-    services.user.createOne({ username: account.username, password: account.password, avatar: defaultAvatarBase64 }).then((data) => {
-      setMessage("Account created!");
-    });
+    if (!usernameRegex.test(account.username)) {
+      setErrorMessage("Username can only contain letters and numbers.");
+      setAccount({ username: "", password: "" });
+      return;
+    }
+    if (!passwordRegex.test(account.password)) {
+      setErrorMessage("Password can only contain letters and numbers.");
+      setAccount({ username: "", password: "" });
+      return;
+    }
+    services.user.createOne({ username: account.username, password: account.password, avatar: defaultAvatarBase64 })
+      .then((data) => {
+        alert("Account created!");
+      })
+      .catch((error) => {
+        alert("Account creation failed: " + error.response.data.message);
+      });
     setAccount({ username: "", password: "" });
-    event.preventDefault();
   };
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-50">
-        <body class="h-full">
-        ```
-      */}
+      <div className="flex justify-center">
+        {errorMessage && (
+          <div className="bg-red-500 text-white px-4 py-2 rounded-md">
+            {errorMessage}
+          </div>
+        )}
+      </div>
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
@@ -111,7 +127,6 @@ function SignUpPage() {
           </form>
         </div>
       </div>
-      <pre>{message}</pre>
     </>
   );
 }

@@ -12,7 +12,17 @@ export async function getAllUsers(req, res) {
  */
 export async function createOneUser(req, res) {
   const { username, password, avatar } = req.body;
+  
+  const existingUser = await prisma.user.findUnique({
+    where: {
+      username: username,
+    },
+  });
 
+  // 如果username已存在，返回錯誤訊息
+  if (existingUser) {
+    return res.status(400).json({ message: 'Username already exists.' });
+  }
   const user = await prisma.user.create({
     data: {
       username: username,
