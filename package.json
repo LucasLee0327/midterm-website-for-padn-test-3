@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d frontend/dist",
     "start": "cd backend && yarn start",
     "build": "cd frontend && yarn build",
     "install:all": "cd frontend && yarn install -- production=false && cd ../backend && yarn"
