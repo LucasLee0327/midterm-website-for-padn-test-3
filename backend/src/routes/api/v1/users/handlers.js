@@ -1,17 +1,17 @@
 import { prisma } from "../../../../adapters.js";
 import { fileTypeFromBuffer } from 'file-type';
 
-export async function getAllUsers(req, res) {
-  const allUsers = await prisma.user.findMany();
-  return res.json(allUsers);  
-}
-
 /**
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
 export async function createOneUser(req, res) {
   const { username, password, avatar } = req.body;
+
+  const authenticatedUser = req.session.username;
+  if (authenticatedUser) {
+    return res.status(403).json({ message: 'You are already logged in. Authenticated user cannot create new users.' });
+  }
   
   const existingUser = await prisma.user.findUnique({
     where: {
@@ -38,11 +38,18 @@ export async function createOneUser(req, res) {
  * @param {import('express').Response} res
  */
 export async function getOneUser(req, res) {
-  const username = req.session.username;
-  if (!username) return res.status(400).json({ error: "Invalid username" });
-  const user = await prisma.user.findUnique({ where: { username: username } });
-  if (user === null) return res.status(404).json({ error: "Not Found" });
-  return res.json(user);
+  try {
+    const username = req.session.username;
+    if (!username) return res.status(401).json({ error: "User not authenticated" });
+
+    const user = await prisma.user.findUnique({ where: { username: username } });
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    return res.json(user);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 }
 
 /**

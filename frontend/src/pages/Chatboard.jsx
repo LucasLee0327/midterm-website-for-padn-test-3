@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { useState, useEffect } from 'react';
+import DOMPurify from "dompurify";
 import services from "../services";
 
 // webpage template from https://tailblocks.cc/
@@ -19,7 +20,7 @@ function Chatboard() {
                     console.error('Error fetching user data: Invalid response format');
                 }
             } catch (error) {
-                console.error('Error fetching username:', error);
+                console.error('Error fetching username:', 'Where your username?');
             }
         }
 
@@ -35,16 +36,20 @@ function Chatboard() {
         [name]: value,
         }))
     }
+
     /** @type {React.FormEventHandler<HTMLFormElement>} */
     const handleFormSubmit = async (event) => {
         event.preventDefault();
+        
+        const sanitizedContent = DOMPurify.sanitize(textInput.content);
+
         try {
-           await services.user.poMessage(textInput);
+           await services.user.poMessage({ content: sanitizedContent });
            // 刷新留言列表
            fetchComments();
            setTextInput({ content: '' });
         } catch (error) {
-           console.error('Error posting message:', error);
+           console.error('Error posting message:', 'API screwed up.');
         }
     }
 
@@ -53,7 +58,7 @@ function Chatboard() {
            await services.user.delMessage(messageId);
            setComments(prev => prev.filter(comment => comment.id !== messageId));
         } catch (error) {
-           console.error('Error deleting message:', error);
+           console.error('Error deleting message:', 'API screwed up.');
         }
     }
 
@@ -67,14 +72,14 @@ function Chatboard() {
            const response = await services.user.getAllMess();
            setComments(response);
         } catch (error) {
-           console.error('Error fetching comments:', error);
+           console.error('Error fetching comments:', 'API screwed up.');
         }
     }
 
     // next page content
     return (
         <>
-            <section className="text-black body-font overflow-hidden">
+            <section className="text-black body-font overflow-hidden">               
                 <div className="container px-5 py-10 mx-auto">
                     <h1 className="flex justify-start py-5 text-2xl font-bold">Chatboard</h1>
                     <div className="-my-8 divide-y-2 divide-gray-200">
@@ -93,7 +98,7 @@ function Chatboard() {
                                 <div key={comment.id} className="text-left mb-4 bg-blue-100 p-4 rounded-lg">
                                     <img src={comment.author.avatar} alt="Avatar" className="w-10 h-10 rounded-full" />
                                     <p className="text-xl font-semibold text-gray-900 title-font mb-2">{comment.author.username}</p>                                                                                                                
-                                    <p className="leading-relaxed">{comment.content}</p>
+                                    <p className="leading-relaxed" dangerouslySetInnerHTML={{ __html: comment.content.replace(/</g, "&lt;").replace(/>/g, "&gt;") }} />
                                     { username === comment.author.username && (
                                         <button className="text-sm text-red-500 mt-2" onClick={() => handleDelete(comment.id)}>删除留言</button>
                                     )}                                   

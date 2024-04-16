@@ -84,7 +84,61 @@ export default function RootLayout() {
                     </div>
                   </div>
                 </div>
-                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                
+              </div>
+            </div>
+
+            <Disclosure.Panel className="sm:hidden">
+              {({ close }) => (
+                <div className="space-y-1 px-2 pt-2 pb-3">
+                  {navigation.map((item) => (
+                    <NavLink
+                      key={item.name}
+                      as={NavLink}
+                      to={item.href}
+                      className={({ isActive }) =>
+                        classNames(
+                          isActive
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "block rounded-md px-3 py-2 text-base font-medium"
+                        )
+                      }
+                      onClick={close}
+                    >
+                      {item.name}
+                    </NavLink>
+                  ))}
+                </div>
+              )}
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+      <div>
+        <Outlet />
+      </div>   
+    </div>
+  );
+}
+
+export function RootIndex() {
+  return (
+    <div className="my-16">
+      <div className="flex justify-center my-4">
+        <h1 className="text-4xl block">Lucas Lee's Website</h1>
+      </div>
+      <div className="flex justify-center">
+        <a href="https://www.youtube.com/watch?v=yQgN0A0WCzE" target="_blank">
+          <img src={homegif} className="w-52 logo" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/*
+<div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <button
                     type="button"
                     className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -93,7 +147,7 @@ export default function RootLayout() {
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
 
-                  {/* Profile dropdown */}
+                  
                   <Menu as="div" className="relative ml-3">
                     <div>
                       <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -158,54 +212,4 @@ export default function RootLayout() {
                     </Transition>
                   </Menu>
                 </div>
-              </div>
-            </div>
-
-            <Disclosure.Panel className="sm:hidden">
-              {({ close }) => (
-                <div className="space-y-1 px-2 pt-2 pb-3">
-                  {navigation.map((item) => (
-                    <NavLink
-                      key={item.name}
-                      as={NavLink}
-                      to={item.href}
-                      className={({ isActive }) =>
-                        classNames(
-                          isActive
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "block rounded-md px-3 py-2 text-base font-medium"
-                        )
-                      }
-                      onClick={close}
-                    >
-                      {item.name}
-                    </NavLink>
-                  ))}
-                </div>
-              )}
-            </Disclosure.Panel>
-          </>
-        )}
-      </Disclosure>
-      <div>
-        <Outlet />
-      </div>   
-    </div>
-  );
-}
-
-export function RootIndex() {
-  return (
-    <div className="my-16">
-      <div className="flex justify-center my-4">
-        <h1 className="text-4xl block">Lucas Lee's Website</h1>
-      </div>
-      <div className="flex justify-center">
-        <a href="https://www.youtube.com/watch?v=yQgN0A0WCzE" target="_blank">
-          <img src={homegif} className="w-52 logo" />
-        </a>
-      </div>
-    </div>
-  );
-}
+*/

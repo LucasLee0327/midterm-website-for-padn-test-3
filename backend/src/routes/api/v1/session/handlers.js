@@ -22,6 +22,6 @@ export async function getUsername(req, res) {
     return res.status(200).json({ Username: req.session.username });
   } else {
     // 登入失敗，返回錯誤訊息
-    return res.status(401).json({ Username: req.session.username });
+    return res.status(401).json({ error: "User not authenticated" });
   }
 }

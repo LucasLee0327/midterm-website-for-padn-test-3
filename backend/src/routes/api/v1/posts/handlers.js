@@ -22,6 +22,10 @@ export async function poMessage(req, res) {
    try {
       const { content } = req.body;
       const username = req.session.username; // 从会话中获取用户ID
+      if (!username) {
+        return res.status(401).json({ error: "User not authenticated" });
+      }
+    
       const user = await prisma.user.findUnique({ where: { username: username }, select: { id: true, username: true, avatar: true } }); // 查询用户信息
       if (!user) {
          return res.status(404).json({ error: "User not found" });
@@ -48,6 +52,10 @@ export async function delMessage(req, res) {
     try {
         const messageId = parseInt(req.params.id);
         const username = req.session.username; // 從會話中獲取當前用戶名稱
+        if (!username) {
+            return res.status(401).json({ error: "User not authenticated" });
+        }
+
         const message = await prisma.message.findUnique({
             where: { id: messageId },
             include: { author: true } // 包含留言作者的完整信息
