@@ -1,18 +1,24 @@
 import express from "express";
 import session from "express-session";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import { prisma } from "./adapters.js";
 import rootRouter from "./routes/index.js";
 import { csrfErrorHandler, doubleCsrfProtection } from "./csrf.js";
 // import loginRouter from "./login.js";
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const frontendDir = path.join(__dirname, "../../frontend/dist");
+
+const frontendUrl = process.env.REACT_APP_FRONTEND_URL || 'http://localhost:8000';
+const frontendDir = path.join(frontendUrl, "/");
 
 const port = process.env.PORT || 8000;
 
 const app = express();
+
+app.use(cors({
+  origin: 'https://midterm-website-for-padn-frontend.vercel.app'
+}));
 
 app.use(express.static(frontendDir));
 
