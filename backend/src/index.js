@@ -16,9 +16,7 @@ const port = process.env.PORT || 8000;
 
 const app = express();
 
-app.use(cors({
-  origin: 'https://midterm-website-for-padn-frontend.vercel.app'
-}));
+app.use(cors());
 
 app.use(express.static(frontendDir));
 
