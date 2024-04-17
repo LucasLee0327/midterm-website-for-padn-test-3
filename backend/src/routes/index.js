@@ -14,4 +14,12 @@ rootRouter.use("/api/v1/login", isLoggedIn)
 rootRouter.use("/api/v1/session", sessionStatus)
 rootRouter.use("/api/v1/posts", messages)
 
+rootRouter.get("/", (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
+});
+
 export default rootRouter;
