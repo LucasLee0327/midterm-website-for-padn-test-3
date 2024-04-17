@@ -9,19 +9,21 @@ import rootRouter from "./routes/index.js";
 import { csrfErrorHandler, doubleCsrfProtection } from "./csrf.js";
 // import loginRouter from "./login.js";
 
+/*
 const frontendUrl = process.env.REACT_APP_FRONTEND_URL || 'http://localhost:8000';
 const frontendDir = path.join(frontendUrl, "/");
+app.use(express.static(frontendDir));
+*/
 
 const port = process.env.PORT || 8000;
 
 const app = express();
 
-const corsOptions ={
-    credentials:true,            //access-control-allow-credentials:true
-}
+const corsOptions = {
+  origin: 'https://midterm-website-for-padn-test-3-frontend.vercel.app',
+  credentials: true,
+};
 app.use(cors(corsOptions));
-
-app.use(express.static(frontendDir));
 
 if (process.env.NODE_ENV === "production") {
   app.set("trust proxy", 1);
