@@ -19,7 +19,6 @@ const app = express();
 const corsOptions ={
     origin:'https://midterm-website-for-padn-test-3-frontend.vercel.app', 
     credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
 
