@@ -50,12 +50,14 @@ app.use(doubleCsrfProtection);
 app.use(csrfErrorHandler);
 app.use(rootRouter);
 
+/*
 app.get("*", (req, res) => {
   if (!req.originalUrl.startsWith("/api")) {
     return res.sendFile(path.join(frontendDir, "index.html"));
   }
   return res.status(404).send();
 });
+*/
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
