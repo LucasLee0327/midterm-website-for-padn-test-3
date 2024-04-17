@@ -7,9 +7,11 @@ import { prisma } from "../../../../adapters.js";
 export async function loginCheck(req, res) {
     const { username, password } = req.body;
 
+    /*
     if (req.session.username || req.session.isLoggedIn) {
-      return res.status(403).json({ message: 'You are already logged in. Authenticated user cannot create new users.' });
+      return res.status(403).json({ message: 'You are already logged in.' });
     }
+    */
   
     // 在資料庫中查找與提供的帳號相匹配的用戶
     const user = await prisma.user.findFirst({ where: { username: username } });
