@@ -19,6 +19,11 @@ function About() {
           <br/>
           欸嘿( 。ω。)b
         </p>
+        <p>
+          本網站使用ChatGPT協助建造與防禦設計
+          <br/>
+          新手上路，請鞭小力一點QwQ
+        </p>
       </div>
     </div>
   )
