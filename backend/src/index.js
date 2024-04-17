@@ -17,7 +17,6 @@ const port = process.env.PORT || 8000;
 const app = express();
 
 const corsOptions ={
-    origin:'https://midterm-website-for-padn-test-3-frontend.vercel.app', 
     credentials:true,            //access-control-allow-credentials:true
 }
 app.use(cors(corsOptions));
