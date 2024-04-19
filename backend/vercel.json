@@ -6,6 +6,7 @@
     }],
     "routes": [{
         "src": "/(.*)",
-        "dest": "src/index.js"
+        "dest": "src/index.js",
+        "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
     }]
 }
