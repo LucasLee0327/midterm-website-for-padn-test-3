@@ -127,13 +127,15 @@ export function RootIndex() {
     <div className="my-16">
       <div className="flex justify-center my-4">
         <h1 className="text-4xl block">Lucas Lee's Website</h1>
-        <br/>
-        <h2 className="text-2xl block text-red-500">網站後端維護中，登入無法使用，請耐心等待...</h2>
       </div>
       <div className="flex justify-center">
         <a href="https://www.youtube.com/watch?v=yQgN0A0WCzE" target="_blank">
           <img src={homegif} className="w-52 logo" />
         </a>
+      </div>
+      <div className="flex justify-center my-4">
+        <p className="text-xl block">更換使用者頭貼、留言板功能，請登入後使用。</p>
+        <p className="text-xl block">API回應速度很慢，留言板、登入功能可能需約5秒回應時間，請見諒。</p>
       </div>
     </div>
   );
