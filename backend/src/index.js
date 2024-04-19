@@ -26,13 +26,14 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 if (process.env.NODE_ENV === "production") {
+  console.log("proxy set!");
   app.set("trust proxy", 1);
 }
 app.use(
   session({
     cookie: {
-      httpOnly: false,
-      sameSite: "strict",
+      httpOnly: true,
+      sameSite: "lax",
       secure: process.env.NODE_ENV === "production",
       maxAge: null, // session cookie
     },
