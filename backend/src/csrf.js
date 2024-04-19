@@ -12,7 +12,7 @@ export const {
   cookieName: `${isProd ? "__Host-" : ""}csrf`,
   cookieOptions: {
     httpOnly: true,
-    sameSite: "strict", // Recommend you make this strict if posible
+    sameSite: "lax", // Recommend you make this strict if posible
     path: "/",
     secure: isProd,
   },
