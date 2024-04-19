@@ -1,11 +1,6 @@
 {
     "rewrites": [
       { "source": "/(.*)",
-        "has":[{
-            "type":"header",
-            "key":"cache-control",
-            "value":"no-cache, no-store, must-revalidate"
-        }],
         "destination": "/"
     }
     ]
