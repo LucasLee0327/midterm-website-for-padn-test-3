@@ -33,7 +33,7 @@ app.use(
   session({
     cookie: {
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
       maxAge: null, // session cookie
     },
