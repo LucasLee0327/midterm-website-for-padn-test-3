@@ -7,13 +7,6 @@ import { fileURLToPath } from "url";
 import { prisma } from "./adapters.js";
 import rootRouter from "./routes/index.js";
 import { csrfErrorHandler, doubleCsrfProtection } from "./csrf.js";
-// import loginRouter from "./login.js";
-
-/*
-const frontendUrl = process.env.REACT_APP_FRONTEND_URL || 'http://localhost:8000';
-const frontendDir = path.join(frontendUrl, "/");
-app.use(express.static(frontendDir));
-*/
 
 const port = process.env.PORT || 8000;
 
