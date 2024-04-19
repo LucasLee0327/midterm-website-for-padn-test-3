@@ -7,7 +7,7 @@ import { prisma } from "../../../../adapters.js";
 export async function loginCheck(req, res) {
     const { username, password } = req.body;
 
-    if (req.session.username || req.session.isLoggedIn) {
+    if (req.session.username && req.session.isLoggedIn) {
       return res.status(403).json({ message: 'You are already logged in.' });
     }
   

@@ -1,5 +1,9 @@
 {
     "rewrites": [
-      { "source": "/(.*)", "destination": "/" }
+      { "source": "/(.*)",
+        "destination": "/", 
+        "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate"
+      } }
     ]
 }
