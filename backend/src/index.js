@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(
   session({
     cookie: {
-      httpOnly: true,
+      httpOnly: false,
       sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
       maxAge: null, // session cookie
