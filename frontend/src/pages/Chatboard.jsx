@@ -20,7 +20,7 @@ function Chatboard() {
                     console.error('Error fetching user data: Invalid response format');
                 }
             } catch (error) {
-                console.error('Error fetching username:', 'Where your username?');
+                console.error('Error fetching username:', error);
             }
         }
 
@@ -49,7 +49,7 @@ function Chatboard() {
            fetchComments();
            setTextInput({ content: '' });
         } catch (error) {
-           console.error('Error posting message:', 'API screwed up.');
+           console.error('Error posting message:', error);
         }
     }
 
@@ -58,7 +58,7 @@ function Chatboard() {
            await services.user.delMessage(messageId);
            setComments(prev => prev.filter(comment => comment.id !== messageId));
         } catch (error) {
-           console.error('Error deleting message:', 'API screwed up.');
+           console.error('Error deleting message:', error);
         }
     }
 
@@ -72,7 +72,7 @@ function Chatboard() {
            const response = await services.user.getAllMess();
            setComments(response);
         } catch (error) {
-           console.error('Error fetching comments:', 'API screwed up.');
+           console.error('Error fetching comments:', error);
         }
     }
 
